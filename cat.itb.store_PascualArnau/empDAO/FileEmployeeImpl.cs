@@ -11,7 +11,7 @@ namespace cat.itb.store_PascualArnau.empDAO
     public class FileEmployeeImpl : EmployeeDAO
     {
         private const string fileName = "employees.json";
-        private const string filePath = @"..\..\..\..\files\" + fileName;
+        private const string filePath = @"..\..\..\files\" + fileName;
 
         public bool Delete(int empId)
         {
