@@ -12,7 +12,7 @@ namespace cat.itb.store_PascualArnau.maps
     {
         public EmployeeMap()
         {
-            Table("EMPLOYEE");
+            Table("EMPLOYEES");
             Id(x => x._id);
             Map(x => x.Surname).Column("surname");
             Map(x => x.Job).Column("job");

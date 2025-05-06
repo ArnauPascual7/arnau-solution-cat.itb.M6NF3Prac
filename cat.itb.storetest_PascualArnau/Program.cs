@@ -1,10 +1,11 @@
-﻿namespace cat.itb.storetest_PascualArnau
+﻿using StoreLib = cat.itb.store_PascualArnau;
+namespace cat.itb.storetest_PascualArnau
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            StoreLib.InitializeDataHelper.InitializeData();
         }
     }
 }

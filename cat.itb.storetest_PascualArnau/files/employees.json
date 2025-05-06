@@ -1,0 +1,14 @@
+{"_id":7369,"Surname":"SÁNCHEZ","Job":"EMPLEADO","ManagerId":7902,"StartDate":"1990-12-17T00:00:00","Salary":1040.0,"Commission":null,"Department":20}
+{"_id":7499,"Surname":"ARROYO","Job":"VENDEDOR","ManagerId":7698,"StartDate":"1990-02-20T00:00:00","Salary":1500.0,"Commission":390.0,"Department":30}
+{"_id":7521,"Surname":"SALA","Job":"VENDEDOR","ManagerId":7698,"StartDate":"1991-02-22T00:00:00","Salary":1625.0,"Commission":650.0,"Department":30}
+{"_id":7566,"Surname":"JIMÉNEZ","Job":"DIRECTOR","ManagerId":7839,"StartDate":"1991-04-02T00:00:00","Salary":2900.0,"Commission":null,"Department":20}
+{"_id":7654,"Surname":"MARTÍN","Job":"VENDEDOR","ManagerId":7698,"StartDate":"1991-09-29T00:00:00","Salary":1600.0,"Commission":1020.0,"Department":30}
+{"_id":7698,"Surname":"NEGRO","Job":"DIRECTOR","ManagerId":7839,"StartDate":"1991-05-01T00:00:00","Salary":3005.0,"Commission":null,"Department":30}
+{"_id":7782,"Surname":"CEREZO","Job":"DIRECTOR","ManagerId":7839,"StartDate":"1991-06-09T00:00:00","Salary":2885.0,"Commission":null,"Department":10}
+{"_id":7788,"Surname":"GIL","Job":"ANALISTA","ManagerId":7566,"StartDate":"1991-11-09T00:00:00","Salary":3000.0,"Commission":null,"Department":20}
+{"_id":7839,"Surname":"REY","Job":"PRESIDENTE","ManagerId":null,"StartDate":"1991-11-17T00:00:00","Salary":4100.0,"Commission":null,"Department":10}
+{"_id":7844,"Surname":"TOVAR","Job":"VENDEDOR","ManagerId":7698,"StartDate":"1991-09-08T00:00:00","Salary":1350.0,"Commission":0.0,"Department":30}
+{"_id":7876,"Surname":"ALONSO","Job":"EMPLEADO","ManagerId":7788,"StartDate":"1991-09-23T00:00:00","Salary":1430.0,"Commission":null,"Department":20}
+{"_id":7900,"Surname":"JIMENO","Job":"EMPLEADO","ManagerId":7698,"StartDate":"1991-12-03T00:00:00","Salary":1335.0,"Commission":null,"Department":30}
+{"_id":7902,"Surname":"FERNÁNDEZ","Job":"ANALISTA","ManagerId":7566,"StartDate":"1991-12-03T00:00:00","Salary":3000.0,"Commission":null,"Department":20}
+{"_id":7934,"Surname":"MUÑOZ","Job":"EMPLEADO","ManagerId":7782,"StartDate":"1992-01-23T00:00:00","Salary":1690.0,"Commission":null,"Department":10}

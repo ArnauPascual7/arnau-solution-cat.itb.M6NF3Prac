@@ -12,7 +12,7 @@ namespace cat.itb.store_PascualArnau.maps
     {
         public DepartmentMap()
         {
-            Table("DEPARTMENT");
+            Table("DEPARTMENTS");
             Id(x => x._id);
             Map(x => x.Name).Column("name");
             Map(x => x.Loc).Column("loc");

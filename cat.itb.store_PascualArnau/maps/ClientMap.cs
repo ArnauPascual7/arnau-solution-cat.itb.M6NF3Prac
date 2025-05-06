@@ -12,7 +12,7 @@ namespace cat.itb.store_PascualArnau.maps
     {
         public ClientMap()
         {
-            Table("CLIENT");
+            Table("CLIENTS");
             Id(x => x._id);
             Map(x => x.Name).Column("name");
             Map(x => x.Address).Column("address");
