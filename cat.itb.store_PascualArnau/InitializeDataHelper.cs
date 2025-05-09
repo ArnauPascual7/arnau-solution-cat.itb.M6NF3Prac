@@ -38,7 +38,12 @@ namespace cat.itb.store_PascualArnau
 
         public static void RestoreMongoDb()
         {
-            LoadCollection<Employee2>(@"..\..\..\files\employees.json", "itb", "employees");
+            const string fileName = "employees.json";
+            const string filePath = @"..\..\..\files\" + fileName;
+            const string dbName = "itb";
+            const string collectionName = "employees";
+
+            LoadCollection<Employee2>(filePath, dbName, collectionName);
         }
 
         public static void DropSQLTables(List<String> tables)
@@ -81,35 +86,6 @@ namespace cat.itb.store_PascualArnau
             }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nScript Executat, base de dades SQL restaurada");
-            Console.ResetColor();
-        }
-        public static void LoadEmployeesCollection()
-        {
-            const string fileName = "employees.json";
-            const string filePath = @"..\..\..\files\" + fileName;
-            const string dbName = "itb";
-            const string collectionName = "employees";
-
-            FileInfo fileInfo = new FileInfo(filePath);
-
-            var db = MongoConnection.GetDatabase(dbName);
-            db.DropCollection(collectionName);
-
-            Console.WriteLine($"\nColecció {collectionName} eliminada");
-
-            var collection = db.GetCollection<Employee2>(collectionName);
-
-            using (StreamReader reader = fileInfo.OpenText())
-            {
-                string? line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    Employee2? register = JsonConvert.DeserializeObject<Employee2>(line);
-                    if (register != null) collection.InsertOne(register);
-                }
-            }
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nTots els registres de la collecció {collectionName} insertats");
             Console.ResetColor();
         }
 

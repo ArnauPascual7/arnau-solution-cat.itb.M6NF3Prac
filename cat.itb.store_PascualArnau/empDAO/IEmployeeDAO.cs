@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace cat.itb.store_PascualArnau.empDAO
 {
-    public interface EmployeeDAO
+    public interface IEmployeeDAO
     {
         void DeleteAll();
         void InsertAll(List<Employee> emps);

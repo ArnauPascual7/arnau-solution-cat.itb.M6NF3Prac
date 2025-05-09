@@ -1,28 +1,27 @@
 ﻿using cat.itb.store_PascualArnau.connections;
 using cat.itb.store_PascualArnau.model;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cat.itb.store_PascualArnau.empDAO
+namespace cat.itb.store_PascualArnau.clieDAO
 {
-    public class SQLEmployeeImpl : IEmployeeDAO
+    public class SQLClientImpl : IClientDAO
     {
-        private const string tableName = "employees";
+        private const string tableName = "clients";
 
         /// <summary>
-        /// Delete one Employee from the sql table
+        /// Delete one Client from the sql table
         /// </summary>
-        /// <param name="empId">Id of the Employee to delete</param>
+        /// <param name="clieId">Id of the Client to delete</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Delete(int empId)
+        public bool Delete(int clieId)
         {
             bool correct = false;
-            Employee emp = Select(empId);
+            Client clie = Select(clieId);
 
             using (var session = SessionFactorySQLConnection.Open())
             {
@@ -30,11 +29,11 @@ namespace cat.itb.store_PascualArnau.empDAO
                 {
                     try
                     {
-                        session.Delete(emp);
+                        session.Delete(clie);
                         tx.Commit();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Registre de {tableName} amb id {empId} eliminat");
+                        Console.WriteLine($"Registre de {tableName} amb id {clieId} eliminat");
 
                         correct = true;
                     }
@@ -47,7 +46,7 @@ namespace cat.itb.store_PascualArnau.empDAO
                         Debug.WriteLine($"?: Error deleting in {tableName} -> {ex}");
 
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Error en eliminar el registre de {tableName} amb id {empId}");
+                        Console.WriteLine($"Error en eliminar el registre de {tableName} amb id {clieId}");
                     }
                     Console.ResetColor();
                 }
@@ -56,7 +55,7 @@ namespace cat.itb.store_PascualArnau.empDAO
         }
 
         /// <summary>
-        /// Delete all Employees from the sql table
+        /// Delete all Client from the sql table
         /// </summary>
         public void DeleteAll()
         {
@@ -66,9 +65,9 @@ namespace cat.itb.store_PascualArnau.empDAO
                 {
                     try
                     {
-                        foreach(var emp in SelectAll())
+                        foreach (var clie in SelectAll())
                         {
-                            session.Delete(emp);
+                            session.Delete(clie);
                         }
                         tx.Commit();
 
@@ -92,11 +91,11 @@ namespace cat.itb.store_PascualArnau.empDAO
         }
 
         /// <summary>
-        /// Insert one Employee to the sql table
+        /// Insert one Client to the sql table
         /// </summary>
-        /// <param name="emp">Employee to insert</param>
+        /// <param name="clie">Client to insert</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Insert(Employee emp)
+        public bool Insert(Client clie)
         {
             bool correct = false;
 
@@ -106,24 +105,23 @@ namespace cat.itb.store_PascualArnau.empDAO
                 {
                     try
                     {
-                        session.Save(emp);
+                        session.Save(clie);
                         tx.Commit();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Registre amb Id {emp._id} insertat correctament en {tableName}");
+                        Console.WriteLine($"Registre amb Id {clie._id} insertat correctament en {tableName}");
 
                         correct = true;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         if (!tx.WasCommitted)
                         {
                             tx.Rollback();
                         }
-                        Debug.WriteLine($"?: Error inserting in {tableName} -> {ex}");
 
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Error en insertar el registre amb Id {emp._id} en {tableName}");
+                        Console.WriteLine($"Error en insertar el registre amb Id {clie._id} en {tableName}");
                     }
                 }
             }
@@ -133,10 +131,10 @@ namespace cat.itb.store_PascualArnau.empDAO
         }
 
         /// <summary>
-        /// Insert many Employees to the sql table
+        /// Insert many Client to the sql table
         /// </summary>
-        /// <param name="emps">List of Employees to insert</param>
-        public void InsertAll(List<Employee> emps)
+        /// <param name="clies">List of Clients to insert</param>
+        public void InsertAll(List<Client> clies)
         {
             using (var session = SessionFactorySQLConnection.Open())
             {
@@ -144,22 +142,21 @@ namespace cat.itb.store_PascualArnau.empDAO
                 {
                     try
                     {
-                        foreach (var emp in emps)
+                        foreach (var clie in clies)
                         {
-                            session.Save(emp);
+                            session.Save(clie);
                         }
                         tx.Commit();
 
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Registres insertats correctament en {tableName}");
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         if (!tx.WasCommitted)
                         {
                             tx.Rollback();
                         }
-                        Debug.WriteLine($"?: Error inserting list in {tableName} -> {ex}");
 
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"Error en insertar els registres de {tableName}");
@@ -170,42 +167,41 @@ namespace cat.itb.store_PascualArnau.empDAO
         }
 
         /// <summary>
-        /// Select one Employee from the sql table
+        /// Select one Client from the sql table
         /// </summary>
-        /// <param name="empId">Id of the Employee to select</param>
-        /// <returns>Selected Employee</returns>
-        public Employee Select(int empId)
+        /// <param name="clieId">Id of the Client to select</param>
+        /// <returns>Selected Client</returns>
+        public Client Select(int clieId)
         {
-            Employee emp;
+            Client clie;
             using (var session = SessionFactorySQLConnection.Open())
             {
-                emp = session.Get<Employee>(empId);
+                clie = session.Get<Client>(clieId);
             }
-            return emp;
+            return clie;
         }
 
         /// <summary>
-        /// Select all Employees from the sql table
+        /// Select all Client from the sql table
         /// </summary>
-        /// <returns>List of the Selected Employees</returns>
-        public List<Employee> SelectAll()
+        /// <returns>List of the Selected Client</returns>
+        public List<Client> SelectAll()
         {
-            List<Employee> emps;
+            List<Client> clies;
             using (var session = SessionFactorySQLConnection.Open())
             {
-                //emps = (from e in session.Query<Employee>() select e).ToList();
-                emps = session.Query<Employee>().Select(e => e).ToList();
+                clies = session.Query<Client>().Select(e => e).ToList();
             }
-            return emps;
+            return clies;
 
         }
 
         /// <summary>
-        /// Update one Employee from the sql table
+        /// Update one Client from the sql table
         /// </summary>
-        /// <param name="emp">Employee to update</param>
+        /// <param name="clie">Client to update</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Update(Employee emp)
+        public bool Update(Client clie)
         {
             bool correct = false;
 
@@ -215,11 +211,11 @@ namespace cat.itb.store_PascualArnau.empDAO
                 {
                     try
                     {
-                        session.Update(emp);
+                        session.Update(clie);
                         tx.Commit();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Registre de {tableName} amb id {emp._id} actualitzat correctament");
+                        Console.WriteLine($"Registre de {tableName} amb id {clie._id} actualitzat correctament");
 
                         correct = true;
                     }
@@ -232,7 +228,7 @@ namespace cat.itb.store_PascualArnau.empDAO
                         Debug.WriteLine($"?: Error updating in {tableName} -> {ex}");
 
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Error en actualitzar el registre de {tableName} amb id {emp._id}");
+                        Console.WriteLine($"Error en actualitzar el registre de {tableName} amb id {clie._id}");
                     }
                 }
             }

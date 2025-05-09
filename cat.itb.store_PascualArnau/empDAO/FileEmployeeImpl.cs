@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace cat.itb.store_PascualArnau.empDAO
 {
-    public class FileEmployeeImpl : EmployeeDAO
+    public class FileEmployeeImpl : IEmployeeDAO
     {
         private const string fileName = "employees.json";
         private const string filePath = @"..\..\..\files\" + fileName;

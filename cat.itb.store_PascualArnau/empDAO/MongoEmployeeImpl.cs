@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace cat.itb.store_PascualArnau.empDAO
 {
-    public class MongoEmployeeImpl : EmployeeDAO
+    public class MongoEmployeeImpl : IEmployeeDAO
     {
         private const string dbName = "itb";
         private const string collectionName = "employees";

@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS clients;
 
 CREATE TABLE departments (
- _id  INTEGER NOT NULL PRIMARY KEY,
+ _id  SERIAL NOT NULL PRIMARY KEY,
  name  VARCHAR(15), 
  loc   VARCHAR(15)
 );
@@ -15,7 +15,7 @@ INSERT INTO departments VALUES (40,'PRODUCCIÓN','BILBAO');
 COMMIT;
 
 CREATE TABLE employees (
- _id    INTEGER  NOT NULL PRIMARY KEY,
+ _id    SERIAL  NOT NULL PRIMARY KEY,
  surname  VARCHAR(10),
  job    VARCHAR(10),
  managerid INTEGER,
@@ -59,7 +59,7 @@ COMMIT;
 
 
 CREATE TABLE IF NOT EXISTS clients (
- _id          INTEGER PRIMARY KEY,
+ _id          SERIAL PRIMARY KEY,
  name                 VARCHAR (45) NOT NULL,
  address               VARCHAR (40) NOT NULL,
  city              VARCHAR (30) NOT NULL,
