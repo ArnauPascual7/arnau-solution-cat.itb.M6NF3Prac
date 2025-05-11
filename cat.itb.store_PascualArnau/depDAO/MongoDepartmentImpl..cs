@@ -1,59 +1,57 @@
-﻿using cat.itb.store_PascualArnau.connections;
-using cat.itb.store_PascualArnau.model;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
+using cat.itb.store_PascualArnau.connections;
+using cat.itb.store_PascualArnau.model;
+using MongoDB.Driver;
 
-namespace cat.itb.store_PascualArnau.empDAO
+namespace cat.itb.store_PascualArnau.depDAO
 {
-    public class MongoEmployeeImpl : IEmployeeDAO<Employee2>
+    public class MongoDepartmentImpl : IDepartmentDAO<Department2>
     {
         private const string dbName = "itb";
-        private const string collectionName = "employees";
+        private const string collectionName = "departments";
 
         /// <summary>
-        /// Delete an Employee from the mongoDb collection
+        /// Delete an Department from the mongoDb collection
         /// </summary>
-        /// <param name="empId">Id of the Employee to delete</param>
+        /// <param name="deptId">Id of the Department to delete</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Delete(int empId)
+        public bool Delete(int deptId)
         {
             var database = MongoConnection.GetDatabase(dbName);
-            var collection = database.GetCollection<Employee2>(collectionName);
+            var collection = database.GetCollection<Department2>(collectionName);
 
             bool correct;
 
-            var deleteFilter = Builders<Employee2>.Filter.Eq("_id", empId);
+            var deleteFilter = Builders<Department2>.Filter.Eq("_id", deptId);
 
             var depDeleted = collection.DeleteOne(deleteFilter);
 
             if (depDeleted.DeletedCount != 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Registre de {collectionName} amb id {empId} eliminat");
+                Console.WriteLine($"Registre de {collectionName} amb id {deptId} eliminat");
 
                 correct = true;
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Error en eliminar el registre de {collectionName} amb id {empId}");
+                Console.WriteLine($"Error en eliminar el registre de {collectionName} amb id {deptId}");
 
                 correct = false;
             }
             Console.ResetColor();
-            
+
             return correct;
         }
 
         /// <summary>
-        /// Delete all Employees from mongoDb collection
+        /// Delete all Department from mongoDb collection
         /// </summary>
         public void DeleteAll()
         {
@@ -76,20 +74,20 @@ namespace cat.itb.store_PascualArnau.empDAO
         }
 
         /// <summary>
-        /// Insert one Employee to the mongoDb collection
+        /// Insert one Department to the mongoDb collection
         /// </summary>
-        /// <param name="emp2">Employee to insert</param>
+        /// <param name="dept">Department to insert</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Insert(Employee2 emp)
+        public bool Insert(Department2 dept)
         {
 
             var database = MongoConnection.GetDatabase(dbName);
-            var collection = database.GetCollection<Employee2>(collectionName);
+            var collection = database.GetCollection<Department2>(collectionName);
 
             bool correct;
             try
             {
-                collection.InsertOne(emp);
+                collection.InsertOne(dept);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"\nRegistre insertat correctament en {dbName}");
@@ -111,19 +109,19 @@ namespace cat.itb.store_PascualArnau.empDAO
         }
 
         /// <summary>
-        /// Insert many Employees to the mongoDb collection
+        /// Insert many Department to the mongoDb collection
         /// </summary>
-        /// <param name="emps">Employees to insert</param>
-        public void InsertAll(List<Employee2> emps)
+        /// <param name="depts">Department to insert</param>
+        public void InsertAll(List<Department2> depts)
         {
             //DeleteAll();
 
             var database = MongoConnection.GetDatabase(dbName);
-            var collection = database.GetCollection<Employee2>(collectionName);
+            var collection = database.GetCollection<Department2>(collectionName);
 
             try
             {
-                collection.InsertMany(emps);
+                collection.InsertMany(depts);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"\nRegistres insertats correctament en {collectionName} ");
@@ -139,52 +137,52 @@ namespace cat.itb.store_PascualArnau.empDAO
         }
 
         /// <summary>
-        /// Select one Employee from mongoDb collection
+        /// Select one Department from mongoDb collection
         /// </summary>
-        /// <param name="empId">Id of the Employee</param>
-        /// <returns>Selected Employee</returns>
-        public Employee2 Select(int empId)
+        /// <param name="deptId">Id of the Department</param>
+        /// <returns>Selected Department</returns>
+        public Department2 Select(int deptId)
         {
             var database = MongoConnection.GetDatabase(dbName);
-            var collection = database.GetCollection<Employee2>(collectionName);
+            var collection = database.GetCollection<Department2>(collectionName);
 
-            var emp = collection.AsQueryable<Employee2>()
-                        .Where(d => d._id == empId)
+            var dept = collection.AsQueryable<Department2>()
+                        .Where(d => d._id == deptId)
                         .Single();
 
-            return emp;
+            return dept;
         }
 
         /// <summary>
-        /// Select all Employees from mongoDb collection
+        /// Select all Department from mongoDb collection
         /// </summary>
-        /// <returns>List of selected Employees</returns>
-        public List<Employee2> SelectAll()
+        /// <returns>List of selected Department</returns>
+        public List<Department2> SelectAll()
         {
             var database = MongoConnection.GetDatabase(dbName);
-            var collection = database.GetCollection<Employee2>(collectionName);
+            var collection = database.GetCollection<Department2>(collectionName);
 
-            var emps = collection.AsQueryable<Employee2>().ToList();
+            var depts = collection.AsQueryable<Department2>().ToList();
 
-            return emps;
+            return depts;
         }
 
         /// <summary>
-        /// Update one Employee of the mongoDb collection
+        /// Update one Department of the mongoDb collection
         /// </summary>
-        /// <param name="emp">Employee to update</param>
+        /// <param name="dept">Department to update</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Update(Employee2 emp)
+        public bool Update(Department2 dept)
         {
-            if (Delete(emp._id) && Insert(emp))
+            if (Delete(dept._id) && Insert(dept))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Registre de {collectionName} amb id {emp._id} actualitzat");
+                Console.WriteLine($"Registre de {collectionName} amb id {dept._id} actualitzat");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Error en actualitzar el registre de {collectionName} amb id {emp._id}");
+                Console.WriteLine($"Error en actualitzar el registre de {collectionName} amb id {dept._id}");
 
                 return false;
             }
@@ -192,5 +190,6 @@ namespace cat.itb.store_PascualArnau.empDAO
 
             return true;
         }
+
     }
 }

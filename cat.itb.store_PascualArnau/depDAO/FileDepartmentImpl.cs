@@ -1,20 +1,20 @@
-﻿using cat.itb.store_PascualArnau.model;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using cat.itb.store_PascualArnau.model;
+using Newtonsoft.Json;
 
-namespace cat.itb.store_PascualArnau.empDAO
+namespace cat.itb.store_PascualArnau.depDAO
 {
-    public class FileEmployeeImpl : IEmployeeDAO<Employee>
+    public class FileDepartmentImpl : IDepartmentDAO<Department>
     {
-        private const string fileName = "employees.json";
+        private const string fileName = "departments.json";
         private const string filePath = @"..\..\..\files\" + fileName;
 
-        public bool Delete(int empId)
+        public bool Delete(int deptId)
         {
             throw new NotImplementedException();
         }
@@ -24,24 +24,24 @@ namespace cat.itb.store_PascualArnau.empDAO
             throw new NotImplementedException();
         }
 
-        public bool Insert(Employee emp)
+        public bool Insert(Department dept)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Insert Employees into the file
+        /// Insert Department into the file
         /// </summary>
-        /// <param name="emps">Employees to insert</param>
-        public void InsertAll(List<Employee> emps1)
+        /// <param name="depts">Department to insert</param>
+        public void InsertAll(List<Department> depts)
         {
-            Debug.WriteLine("?: Employees Json File Path -> " + Path.GetFullPath(filePath));
+            Debug.WriteLine("?: Client Json File Path -> " + Path.GetFullPath(filePath));
 
-            List<Employee2> emps = new List<Employee2>();
+            List<Department2> depts2 = new List<Department2>();
 
-            foreach (var e in emps1)
+            foreach (var d in depts)
             {
-                emps.Add(ModelConverterHelper.ConvertToEmployee2(e));
+                depts2.Add(ModelConverterHelper.ConvertToDepartment2(d));
             }
 
             FileInfo file = new FileInfo(filePath);
@@ -50,9 +50,9 @@ namespace cat.itb.store_PascualArnau.empDAO
             {
                 try
                 {
-                    foreach (var emp in emps)
+                    foreach (var dept in depts2)
                     {
-                        writer.WriteLine(JsonConvert.SerializeObject(emp));
+                        writer.WriteLine(JsonConvert.SerializeObject(dept));
                     }
 
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -69,33 +69,33 @@ namespace cat.itb.store_PascualArnau.empDAO
             Console.ResetColor();
         }
 
-        public Employee Select(int empId)
+        public Department Select(int deptId)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Select all Employees from the file
+        /// Select all Department from the file
         /// </summary>
-        /// <returns>Employees in the file</returns>
-        public List<Employee> SelectAll()
+        /// <returns>Department in the file</returns>
+        public List<Department> SelectAll()
         {
             FileInfo file = new FileInfo(filePath);
-            List<Employee> list = new List<Employee>();
+            List<Department> list = new List<Department>();
 
             using (StreamReader writer = file.OpenText())
             {
-                string? emp;
+                string? dept;
 
-                while ((emp = writer.ReadLine()) != null)
+                while ((dept = writer.ReadLine()) != null)
                 {
-                    list.Add(ModelConverterHelper.ConvertToEmployee(JsonConvert.DeserializeObject<Employee2>(emp)));
+                    list.Add(ModelConverterHelper.ConvertToDepartment(JsonConvert.DeserializeObject<Department2>(dept)));
                 }
             }
             return list;
         }
 
-        public bool Update(Employee emp)
+        public bool Update(Department dept)
         {
             throw new NotImplementedException();
         }

@@ -1,27 +1,27 @@
-﻿using cat.itb.store_PascualArnau.connections;
-using cat.itb.store_PascualArnau.model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using cat.itb.store_PascualArnau.connections;
+using cat.itb.store_PascualArnau.model;
 
-namespace cat.itb.store_PascualArnau.clieDAO
+namespace cat.itb.store_PascualArnau.depDAO
 {
-    public class SQLClientImpl : IClientDAO<Client>
+    public class SQLDepartmentImpl : IDepartmentDAO<Department>
     {
         private const string tableName = "clients";
 
         /// <summary>
-        /// Delete one Client from the sql table
+        /// Delete one Department from the sql table
         /// </summary>
-        /// <param name="clieId">Id of the Client to delete</param>
+        /// <param name="deptId">Id of the Department to delete</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Delete(int clieId)
+        public bool Delete(int deptId)
         {
             bool correct = false;
-            Client clie = Select(clieId);
+            Department dept = Select(deptId);
 
             using (var session = SessionFactorySQLConnection.Open())
             {
@@ -29,11 +29,11 @@ namespace cat.itb.store_PascualArnau.clieDAO
                 {
                     try
                     {
-                        session.Delete(clie);
+                        session.Delete(dept);
                         tx.Commit();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Registre de {tableName} amb id {clieId} eliminat");
+                        Console.WriteLine($"Registre de {tableName} amb id {deptId} eliminat");
 
                         correct = true;
                     }
@@ -46,7 +46,7 @@ namespace cat.itb.store_PascualArnau.clieDAO
                         Debug.WriteLine($"?: Error deleting in {tableName} -> {ex}");
 
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Error en eliminar el registre de {tableName} amb id {clieId}");
+                        Console.WriteLine($"Error en eliminar el registre de {tableName} amb id {deptId}");
                     }
                     Console.ResetColor();
                 }
@@ -55,7 +55,7 @@ namespace cat.itb.store_PascualArnau.clieDAO
         }
 
         /// <summary>
-        /// Delete all Client from the sql table
+        /// Delete all Department from the sql table
         /// </summary>
         public void DeleteAll()
         {
@@ -65,9 +65,9 @@ namespace cat.itb.store_PascualArnau.clieDAO
                 {
                     try
                     {
-                        foreach (var clie in SelectAll())
+                        foreach (var dept in SelectAll())
                         {
-                            session.Delete(clie);
+                            session.Delete(dept);
                         }
                         tx.Commit();
 
@@ -91,11 +91,11 @@ namespace cat.itb.store_PascualArnau.clieDAO
         }
 
         /// <summary>
-        /// Insert one Client to the sql table
+        /// Insert one Department to the sql table
         /// </summary>
-        /// <param name="clie">Client to insert</param>
+        /// <param name="dept">Department to insert</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Insert(Client clie)
+        public bool Insert(Department dept)
         {
             bool correct = false;
 
@@ -105,11 +105,11 @@ namespace cat.itb.store_PascualArnau.clieDAO
                 {
                     try
                     {
-                        session.Save(clie);
+                        session.Save(dept);
                         tx.Commit();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Registre amb Id {clie._id} insertat correctament en {tableName}");
+                        Console.WriteLine($"Registre amb Id {dept._id} insertat correctament en {tableName}");
 
                         correct = true;
                     }
@@ -122,7 +122,7 @@ namespace cat.itb.store_PascualArnau.clieDAO
                         Debug.WriteLine($"?: Error inserting in {tableName} -> {ex}");
 
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Error en insertar el registre amb Id {clie._id} en {tableName}");
+                        Console.WriteLine($"Error en insertar el registre amb Id {dept._id} en {tableName}");
                     }
                 }
             }
@@ -132,10 +132,10 @@ namespace cat.itb.store_PascualArnau.clieDAO
         }
 
         /// <summary>
-        /// Insert many Client to the sql table
+        /// Insert many Department to the sql table
         /// </summary>
-        /// <param name="clies">List of Clients to insert</param>
-        public void InsertAll(List<Client> clies)
+        /// <param name="depts">List of Department to insert</param>
+        public void InsertAll(List<Department> depts)
         {
             using (var session = SessionFactorySQLConnection.Open())
             {
@@ -143,9 +143,9 @@ namespace cat.itb.store_PascualArnau.clieDAO
                 {
                     try
                     {
-                        foreach (var clie in clies)
+                        foreach (var dept in depts)
                         {
-                            session.Save(clie);
+                            session.Save(dept);
                         }
                         tx.Commit();
 
@@ -169,64 +169,40 @@ namespace cat.itb.store_PascualArnau.clieDAO
         }
 
         /// <summary>
-        /// Select one Client from the sql table
+        /// Select one Department from the sql table
         /// </summary>
-        /// <param name="clieId">Id of the Client to select</param>
-        /// <returns>Selected Client</returns>
-        public Client Select(int clieId)
+        /// <param name="deptId">Id of the Department to select</param>
+        /// <returns>Selected Department</returns>
+        public Department Select(int deptId)
         {
-            Client clie;
+            Department dept;
             using (var session = SessionFactorySQLConnection.Open())
             {
-                clie = session.Get<Client>(clieId);
+                dept = session.Get<Department>(deptId);
             }
-            return clie;
+            return dept;
         }
 
         /// <summary>
         /// Select all Client from the sql table
         /// </summary>
         /// <returns>List of the Selected Client</returns>
-        public List<Client> SelectAll()
+        public List<Department> SelectAll()
         {
-            List<Client> clies;
+            List<Department> depts;
             using (var session = SessionFactorySQLConnection.Open())
             {
-                clies = session.Query<Client>().Select(e => e).ToList();
+                depts = session.Query<Department>().Select(d => d).ToList();
             }
-            return clies;
-        }
-
-        public List<Client> SelectByEmpId(int empId)
-        {
-            List<Client> clies;
-            using (var session = SessionFactorySQLConnection.Open())
-            {
-                clies = session.Query<Client>()
-                               .Where(c => c.Employee != null && c.Employee._id == empId)
-                               .ToList();
-            }
-            return clies;
-        }
-
-        public List<Client> SelectByEmpSurname(string empSurname)
-        {
-            List<Client> clies;
-            using (var session = SessionFactorySQLConnection.Open())
-            {
-                clies = session.Query<Client>()
-                               .Where(c => c.Employee != null && c.Employee.Surname == empSurname)
-                               .ToList();
-            }
-            return clies;
+            return depts;
         }
 
         /// <summary>
-        /// Update one Client from the sql table
+        /// Update one Department from the sql table
         /// </summary>
-        /// <param name="clie">Client to update</param>
+        /// <param name="dept">Department to update</param>
         /// <returns>If operation was Succesfull</returns>
-        public bool Update(Client clie)
+        public bool Update(Department dept)
         {
             bool correct = false;
 
@@ -236,11 +212,11 @@ namespace cat.itb.store_PascualArnau.clieDAO
                 {
                     try
                     {
-                        session.Update(clie);
+                        session.Update(dept);
                         tx.Commit();
 
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Registre de {tableName} amb id {clie._id} actualitzat correctament");
+                        Console.WriteLine($"Registre de {tableName} amb id {dept._id} actualitzat correctament");
 
                         correct = true;
                     }
@@ -253,7 +229,7 @@ namespace cat.itb.store_PascualArnau.clieDAO
                         Debug.WriteLine($"?: Error updating in {tableName} -> {ex}");
 
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Error en actualitzar el registre de {tableName} amb id {clie._id}");
+                        Console.WriteLine($"Error en actualitzar el registre de {tableName} amb id {dept._id}");
                     }
                 }
             }

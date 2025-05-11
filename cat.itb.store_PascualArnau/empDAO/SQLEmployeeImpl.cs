@@ -1,7 +1,6 @@
 ﻿using cat.itb.store_PascualArnau.connections;
 using cat.itb.store_PascualArnau.model;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace cat.itb.store_PascualArnau.empDAO
 {
-    public class SQLEmployeeImpl : IEmployeeDAO
+    public class SQLEmployeeImpl : IEmployeeDAO<Employee>
     {
         private const string tableName = "employees";
 
@@ -193,11 +192,9 @@ namespace cat.itb.store_PascualArnau.empDAO
             List<Employee> emps;
             using (var session = SessionFactorySQLConnection.Open())
             {
-                //emps = (from e in session.Query<Employee>() select e).ToList();
                 emps = session.Query<Employee>().Select(e => e).ToList();
             }
             return emps;
-
         }
 
         /// <summary>

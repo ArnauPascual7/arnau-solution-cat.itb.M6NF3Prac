@@ -1,20 +1,20 @@
-﻿using cat.itb.store_PascualArnau.model;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using cat.itb.store_PascualArnau.model;
+using Newtonsoft.Json;
 
-namespace cat.itb.store_PascualArnau.empDAO
+namespace cat.itb.store_PascualArnau.clieDAO
 {
-    public class FileEmployeeImpl : IEmployeeDAO<Employee>
+    public class FileClientImpl : IClientDAO<Client>
     {
-        private const string fileName = "employees.json";
+        private const string fileName = "clients.json";
         private const string filePath = @"..\..\..\files\" + fileName;
 
-        public bool Delete(int empId)
+        public bool Delete(int clieId)
         {
             throw new NotImplementedException();
         }
@@ -24,24 +24,24 @@ namespace cat.itb.store_PascualArnau.empDAO
             throw new NotImplementedException();
         }
 
-        public bool Insert(Employee emp)
+        public bool Insert(Client clie)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Insert Employees into the file
+        /// Insert Client into the file
         /// </summary>
-        /// <param name="emps">Employees to insert</param>
-        public void InsertAll(List<Employee> emps1)
+        /// <param name="emps">Client to insert</param>
+        public void InsertAll(List<Client> clies)
         {
-            Debug.WriteLine("?: Employees Json File Path -> " + Path.GetFullPath(filePath));
+            Debug.WriteLine("?: Client Json File Path -> " + Path.GetFullPath(filePath));
 
-            List<Employee2> emps = new List<Employee2>();
+            List<Client2> clies2 = new List<Client2>();
 
-            foreach (var e in emps1)
+            foreach (var c in clies)
             {
-                emps.Add(ModelConverterHelper.ConvertToEmployee2(e));
+                clies2.Add(ModelConverterHelper.ConvertToClient2(c));
             }
 
             FileInfo file = new FileInfo(filePath);
@@ -50,9 +50,9 @@ namespace cat.itb.store_PascualArnau.empDAO
             {
                 try
                 {
-                    foreach (var emp in emps)
+                    foreach (var clie in clies2)
                     {
-                        writer.WriteLine(JsonConvert.SerializeObject(emp));
+                        writer.WriteLine(JsonConvert.SerializeObject(clie));
                     }
 
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -69,33 +69,43 @@ namespace cat.itb.store_PascualArnau.empDAO
             Console.ResetColor();
         }
 
-        public Employee Select(int empId)
+        public Client Select(int clieId)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Select all Employees from the file
+        /// Select all Client from the file
         /// </summary>
-        /// <returns>Employees in the file</returns>
-        public List<Employee> SelectAll()
+        /// <returns>Client in the file</returns>
+        public List<Client> SelectAll()
         {
             FileInfo file = new FileInfo(filePath);
-            List<Employee> list = new List<Employee>();
+            List<Client> list = new List<Client>();
 
             using (StreamReader writer = file.OpenText())
             {
-                string? emp;
+                string? clie;
 
-                while ((emp = writer.ReadLine()) != null)
+                while ((clie = writer.ReadLine()) != null)
                 {
-                    list.Add(ModelConverterHelper.ConvertToEmployee(JsonConvert.DeserializeObject<Employee2>(emp)));
+                    list.Add(ModelConverterHelper.ConvertToClient(JsonConvert.DeserializeObject<Client2>(clie)));
                 }
             }
             return list;
         }
 
-        public bool Update(Employee emp)
+        public List<Client> SelectByEmpId(int empId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Client> SelectByEmpSurname(string empSurname)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(Client clie)
         {
             throw new NotImplementedException();
         }

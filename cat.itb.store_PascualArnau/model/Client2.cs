@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cat.itb.store_PascualArnau.model
 {
-    public class Client
+    public class Client2
     {
         public virtual int _id { get; set; }
         public virtual string Name { get; set; }
@@ -16,7 +16,7 @@ namespace cat.itb.store_PascualArnau.model
         public virtual string Zipcode { get; set; }
         public virtual int Area { get; set; }
         public virtual string? Phone { get; set; }
-        public virtual Employee? Employee { get; set; }
+        public virtual int? Employee { get; set; }
         public virtual float Credit { get; set; }
         public virtual string? Comments { get; set; }
     }

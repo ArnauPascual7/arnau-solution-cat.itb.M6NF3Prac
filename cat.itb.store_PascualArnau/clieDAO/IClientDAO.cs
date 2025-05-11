@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace cat.itb.store_PascualArnau.clieDAO
 {
-    public interface IClientDAO
+    public interface IClientDAO<T>
     {
         void DeleteAll();
-        void InsertAll(List<Client> clies);
-        List<Client> SelectAll();
-        Client Select(int clieId);
-        bool Insert(Client clie);
+        void InsertAll(List<T> clies);
+        List<T> SelectAll();
+        T Select(int clieId);
+        List<T> SelectByEmpId(int empId);
+        List<T> SelectByEmpSurname(string empSurname);
+        bool Insert(T clie);
         bool Delete(int clieId);
-        bool Update(Client clie);
+        bool Update(T clie);
     }
 }

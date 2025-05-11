@@ -1,4 +1,6 @@
-﻿using cat.itb.store_PascualArnau.connections;
+﻿using cat.itb.store_PascualArnau.clieDAO;
+using cat.itb.store_PascualArnau.connections;
+using cat.itb.store_PascualArnau.depDAO;
 using cat.itb.store_PascualArnau.empDAO;
 using cat.itb.store_PascualArnau.model;
 using Newtonsoft.Json;
@@ -21,7 +23,7 @@ namespace cat.itb.store_PascualArnau
 
         public static void RestoreSQLDb()
         {
-            List<string> tables = ["CLIENT", "DEPARTMENTS", "EMPLOYEES"];
+            List<string> tables = ["CLIENTS", "DEPARTMENTS", "EMPLOYEES"];
 
             DropSQLTables(tables);
             RunSQLScript();
@@ -31,22 +33,38 @@ namespace cat.itb.store_PascualArnau
         {
             SQLEmployeeImpl sqlEmpImpl = new SQLEmployeeImpl();
             FileEmployeeImpl fileEmpImpl = new FileEmployeeImpl();
+            SQLClientImpl sqlClientsImpl = new SQLClientImpl();
+            FileClientImpl fileClientsImpl = new FileClientImpl();
+            SQLDepartmentImpl sqlDeptsImpl = new SQLDepartmentImpl();
+            FileDepartmentImpl fileDeptsImpl = new FileDepartmentImpl();
 
             List<Employee> sqlEmps = sqlEmpImpl.SelectAll();
             fileEmpImpl.InsertAll(sqlEmps);
+            List<Client> sqlClients = sqlClientsImpl.SelectAll();
+            fileClientsImpl.InsertAll(sqlClients);
+            List<Department> sqlDepts = sqlDeptsImpl.SelectAll();
+            fileDeptsImpl.InsertAll(sqlDepts);
         }
 
         public static void RestoreMongoDb()
         {
-            const string fileName = "employees.json";
-            const string filePath = @"..\..\..\files\" + fileName;
-            const string dbName = "itb";
-            const string collectionName = "employees";
+            const string EmpsFileName = "employees.json";
+            const string EmpsFilePath = @"..\..\..\files\" + EmpsFileName;
+            const string CliesFileName = "clients.json";
+            const string CliesFilePath = @"..\..\..\files\" + CliesFileName;
+            const string DeptsFileName = "departments.json";
+            const string DeptsFilePath = @"..\..\..\files\" + DeptsFileName;
+            const string DbName = "itb";
+            const string EmpsCollectionName = "employees";
+            const string CliesCollectionName = "clients";
+            const string DeptsCollectionName = "departments";
 
-            LoadCollection<Employee2>(filePath, dbName, collectionName);
+            LoadCollection<Employee2>(EmpsFilePath, DbName, EmpsCollectionName);
+            LoadCollection<Client2>(CliesFilePath, DbName, CliesCollectionName);
+            LoadCollection<Department2>(DeptsFilePath, DbName, DeptsCollectionName);
         }
 
-        public static void DropSQLTables(List<String> tables)
+        public static void DropSQLTables(List<string> tables)
         {
             SQLConnection db = new SQLConnection();
             using (NpgsqlConnection conn = db.GetConnection())
@@ -86,6 +104,19 @@ namespace cat.itb.store_PascualArnau
             }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nScript Executat, base de dades SQL restaurada");
+            Console.ResetColor();
+        }
+
+        public static void DropCollections(string dbName, List<string> collections)
+        {
+            var db = MongoConnection.GetDatabase(dbName);
+            foreach (string collection in collections)
+            {
+                db.DropCollection(collection);
+                Console.WriteLine($"Colecció {collection} eliminada");
+            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nTotes les col·leccions de la base de dades MongoDB han estat eliminades");
             Console.ResetColor();
         }
 

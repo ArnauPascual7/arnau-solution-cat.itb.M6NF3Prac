@@ -13,7 +13,7 @@ namespace cat.itb.store_PascualArnau.maps
         public DepartmentMap()
         {
             Table("DEPARTMENTS");
-            Id(x => x._id);
+            Id(x => x._id).GeneratedBy.Assigned();
             Map(x => x.Name).Column("name");
             Map(x => x.Loc).Column("loc");
             HasMany(x => x.Employees).AsSet()
