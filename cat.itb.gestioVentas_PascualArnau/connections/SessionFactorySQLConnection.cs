@@ -14,7 +14,7 @@ namespace cat.itb.gestioVentas_PascualArnau.connections
         private static string ConnectionString =
     "Server=postgresql-arnaupascual.alwaysdata.net;" +
     "Port=5432;" +
-    "Database=arnaupascual_store2;" +
+    "Database=arnaupascual_ventas;" +
     "User Id=arnaupascual;" +
     "Password=7e8@itb;";
 

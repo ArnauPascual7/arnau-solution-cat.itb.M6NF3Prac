@@ -10,7 +10,7 @@ namespace cat.itb.gestioVentas_PascualArnau.connections
     public class SQLConnection
     {
         private string host = "postgresql-arnaupascual.alwaysdata.net";
-        private string db = "arnaupascual_store2";
+        private string db = "arnaupascual_ventas";
         private string user = "arnaupascual";
         private string password = "7e8@itb";
 
