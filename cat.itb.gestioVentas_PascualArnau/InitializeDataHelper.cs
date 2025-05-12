@@ -18,7 +18,7 @@ namespace cat.itb.gestioVentas_PascualArnau
 
         public static void RestoreSQLDb()
         {
-            List<string> tables = ["CLIENTE"];
+            List<string> tables = ["CLIENTE", "comercial", "pedido"];
 
             DropSQLTables(tables);
             RunSQLScript();

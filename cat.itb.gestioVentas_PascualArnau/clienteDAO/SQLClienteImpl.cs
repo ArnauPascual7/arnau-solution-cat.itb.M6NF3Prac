@@ -192,9 +192,19 @@ namespace cat.itb.gestioVentas_PascualArnau.clienteDAO
             List<Cliente> clies;
             using (var session = SessionFactorySQLConnection.Open())
             {
-                clies = session.Query<Cliente>().Select(e => e).ToList();
+                clies = session.Query<Cliente>().ToList();
             }
             return clies;
+        }
+
+        public Cliente SelectByName(string clieName)
+        {
+            Cliente clie;
+            using (var session = SessionFactorySQLConnection.Open())
+            {
+                clie = session.Query<Cliente>().Where(c => c.Nombre == clieName).Single();
+            }
+            return clie;
         }
 
         /// <summary>

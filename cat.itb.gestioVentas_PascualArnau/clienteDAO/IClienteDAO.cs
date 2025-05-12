@@ -13,6 +13,7 @@ namespace cat.itb.gestioVentas_PascualArnau.clienteDAO
         void InsertAll(List<Cliente> clies);
         List<Cliente> SelectAll();
         Cliente Select(int clieId);
+        Cliente SelectByName(string clieName);
         bool Insert(Cliente clie);
         bool Delete(int clieId);
         bool Update(Cliente clie);

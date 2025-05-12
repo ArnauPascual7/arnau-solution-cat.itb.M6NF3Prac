@@ -88,6 +88,11 @@ namespace cat.itb.gestioVentas_PascualArnau.clienteDAO
             return list;
         }
 
+        public Cliente SelectByName(string clieName)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Update(Cliente clie)
         {
             throw new NotImplementedException();

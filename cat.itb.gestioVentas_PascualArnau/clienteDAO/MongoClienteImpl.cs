@@ -146,7 +146,7 @@ namespace cat.itb.gestioVentas_PascualArnau.clienteDAO
             var collection = database.GetCollection<Cliente>(collectionName);
 
             var clie = collection.AsQueryable<Cliente>()
-                        .Where(d => d._id == clieId)
+                        .Where(c => c._id == clieId)
                         .Single();
 
             return clie;
@@ -163,6 +163,19 @@ namespace cat.itb.gestioVentas_PascualArnau.clienteDAO
 
             var clies = collection.AsQueryable<Cliente>().ToList();
             return clies;
+        }
+
+        public Cliente SelectByName(string clieName)
+        {
+            var database = MongoConnection.GetDatabase(dbName);
+            var collection = database.GetCollection<Cliente>(collectionName);
+
+            var clie = collection.AsQueryable<Cliente>()
+                        .Where(c => c.Nombre == clieName)
+                        .Single();
+
+            return clie;
+
         }
 
         /// <summary>

@@ -1,0 +1,11 @@
+{"_id":1,"Nombre":"Aarón","Apellido1":"Rivero","Apellido2":"Gómez","Ciudad":"Almería","Categoria":100}
+{"_id":2,"Nombre":"Adela","Apellido1":"Salas","Apellido2":"Díaz","Ciudad":"Granada","Categoria":200}
+{"_id":3,"Nombre":"Adolfo","Apellido1":"Rubio","Apellido2":"Flores","Ciudad":"Sevilla","Categoria":0}
+{"_id":4,"Nombre":"Adrián","Apellido1":"Suárez","Apellido2":null,"Ciudad":"Jaén","Categoria":300}
+{"_id":5,"Nombre":"Marcos","Apellido1":"Loyola","Apellido2":"Méndez","Ciudad":"Almería","Categoria":200}
+{"_id":6,"Nombre":"María","Apellido1":"Santana","Apellido2":"Moreno","Ciudad":"Cádiz","Categoria":100}
+{"_id":7,"Nombre":"Pilar","Apellido1":"Ruiz","Apellido2":null,"Ciudad":"Sevilla","Categoria":300}
+{"_id":8,"Nombre":"Pepe","Apellido1":"Ruiz","Apellido2":"Santana","Ciudad":"Huelva","Categoria":200}
+{"_id":10,"Nombre":"Daniel","Apellido1":"Santana","Apellido2":"Loyola","Ciudad":"Sevilla","Categoria":125}
+{"_id":9,"Nombre":"Guillermo","Apellido1":"López","Apellido2":"Gómez","Ciudad":"Lleida","Categoria":225}
+{"_id":33,"Nombre":"Arnau","Apellido1":"Pascual","Apellido2":"Carretero","Ciudad":"Barcelona","Categoria":999}
